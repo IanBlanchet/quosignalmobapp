@@ -11,7 +11,7 @@ export default function AbonneScreen({ navigation }) {
 
     const onSelectAbonne = (id) => {        
         const abonne = abonnes.find((element) => element.id === parseInt(id));
-        console.log('Selected:', abonne);
+        
         setSelectAbonne(abonne);
     };
 
@@ -20,7 +20,7 @@ export default function AbonneScreen({ navigation }) {
             lescentres => {
                 const CAB = lescentres.find((element) => element.id === 1)
                 const lesabonnes = CAB.abonnes;
-                console.log('Abonnes:', lesabonnes);
+                
                 // Vérifiez que les données sont correctement définies
                 if (Array.isArray(lesabonnes) && lesabonnes.length > 0) {
                     setAbonnes(lesabonnes);
