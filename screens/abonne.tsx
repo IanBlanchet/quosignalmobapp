@@ -1,27 +1,31 @@
-import { Text, View, Button, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, ScrollView } from 'react-native';
+import { Button, Menu, Provider } from 'react-native-paper';
 import { getRessources } from '../apiCall';
-import { useState, useEffect } from 'react';
-import { Picker } from '@react-native-picker/picker';
-import ProfileScreen from '../components/profile';
+import ProfileScreen from '../components/profile/profile';
 import { styles } from '../styles/generalstyles';
 
 export default function AbonneScreen({ navigation }) {
     const [abonnes, setAbonnes] = useState([]);
     const [selectAbonne, setSelectAbonne] = useState({});
+    const [visible, setVisible] = useState(false);
 
-    const onSelectAbonne = (id) => {        
-        const abonne = abonnes.find((element) => element.id === parseInt(id));
+    const openMenu = () => setVisible(true);
+    const closeMenu = () => setVisible(false);
+
+    const onSelectAbonne = (id) => {
         
+        const abonne = abonnes.find(element => element.id === parseInt(id));
         setSelectAbonne(abonne);
+        closeMenu();
     };
 
     useEffect(() => {
         getRessources('/api/v1/centre/').then(
             lescentres => {
-                const CAB = lescentres.find((element) => element.id === 1)
+                const CAB = lescentres.find(element => element.id === 1);
                 const lesabonnes = CAB.abonnes;
                 
-                // Vérifiez que les données sont correctement définies
                 if (Array.isArray(lesabonnes) && lesabonnes.length > 0) {
                     setAbonnes(lesabonnes);
                 } else {
@@ -34,33 +38,35 @@ export default function AbonneScreen({ navigation }) {
     }, []);
 
     return (
-        <>
-            <View style={styles.container}>
-                <Picker
-                    style={styles.picker}
-                    selectedValue={selectAbonne.id}
-                    onValueChange={(itemId) => onSelectAbonne(itemId)}
-                >
-                    {abonnes.map((abonne, index) =>
-                        abonne !== undefined ? (
-                            <Picker.Item
-                                label={abonne.prenom + ' ' + abonne.nom}
-                                value={String(abonne.id)}
-                                key={abonne.id.toString()} // Assurez-vous que la clé est une chaîne unique
-                            />
-                        ) : null
-                    )}
-                </Picker>
-            </View>
-            <View>
-                <ProfileScreen abonne={selectAbonne} />
-            </View>
-            <Button
-                title="Home"
-                onPress={() => navigation.navigate('Home')}
-            />
-        </>
+        <Provider>
+            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+                <View style={styles.picker}>
+                    <Menu
+                        visible={visible}
+                        onDismiss={closeMenu}
+                        anchor={<Button onPress={openMenu}>Select Abonne</Button>}
+                    >
+                        {abonnes.map((abonne, index) =>
+                            abonne !== undefined ? (
+                                <Menu.Item
+                                    onPress={() => onSelectAbonne(abonne.id)}
+                                    title={abonne.prenom + ' ' + abonne.nom}
+                                    key={index.toString()}
+                                />
+                            ) : null
+                        )}
+                    </Menu>
+                </View>
+                <View style={{ flex: 1 }}>
+                    <ProfileScreen abonne={selectAbonne} />
+                </View>
+                <Button
+                    title="Home"
+                    onPress={() => navigation.navigate('Home')}
+                />
+            </ScrollView>
+        </Provider>
     );
-};
+}
 
 
