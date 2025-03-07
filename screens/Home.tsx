@@ -15,7 +15,7 @@ function HomeScreen({ navigation }) {
         />
         <Button
           title="Go to Abonne"
-          onPress={() => navigation.navigate('Abonne')}
+          onPress={() => navigation.navigate('Abonnes')}
         />
         <StatusBar style="auto" />
       </View>

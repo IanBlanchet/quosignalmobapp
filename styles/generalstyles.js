@@ -105,6 +105,19 @@ export const styles = StyleSheet.create({
       justifyContent: 'flex-end',
       marginTop: 16,
   },
+  input: {
+    marginBottom: 16,
+},
+checkboxLabel: {
+  marginTop: 16,
+  marginBottom: 8,
+  fontWeight: 'bold',
+},
+checkboxContainer: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  marginBottom: 8,
+},
 
 });
 

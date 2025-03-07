@@ -44,7 +44,7 @@ export default function AbonneScreen({ navigation }) {
                     <Menu
                         visible={visible}
                         onDismiss={closeMenu}
-                        anchor={<Button onPress={openMenu}>Select Abonne</Button>}
+                        anchor={<Button onPress={openMenu}>Choisir un abonne</Button>}
                     >
                         {abonnes.map((abonne, index) =>
                             abonne !== undefined ? (
@@ -59,11 +59,18 @@ export default function AbonneScreen({ navigation }) {
                 </View>
                 <View style={{ flex: 1 }}>
                     <ProfileScreen abonne={selectAbonne} />
+
                 </View>
-                <Button
-                    title="Home"
-                    onPress={() => navigation.navigate('Home')}
-                />
+                <View style={{ padding: 16 }}>
+                    <Button
+                        mode="contained"
+                        onPress={() => navigation.navigate('AddAbonne')}
+                    >
+                        Ajouter un abonne
+                    </Button>
+                </View>
+             
+         
             </ScrollView>
         </Provider>
     );

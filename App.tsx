@@ -9,7 +9,8 @@ import HomeScreen  from './screens/Home'
 import DetailsScreen from './screens/DetailsScreen'
 import { getToken } from './auth';
 import LoginScreen from './screens/LoginScreen';
-import AbonneScreen from './screens/abonne';
+import AbonneScreen from './screens/abonnes';
+import AddAbonneScreen from './screens/addAbonne';
 
 const Stack = createNativeStackNavigator();
 
@@ -39,7 +40,8 @@ export default function App() {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Details" component={DetailsScreen} />
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
-        <Stack.Screen name="Abonne" component={AbonneScreen} />
+        <Stack.Screen name="Abonnes" component={AbonneScreen} />
+        <Stack.Screen name="AddAbonne" component={AddAbonneScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
